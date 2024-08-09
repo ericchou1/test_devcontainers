@@ -1,6 +1,6 @@
 {
     "name": "nautobot_day_02",
-    "image": "docker.io/networktocode/nautobot-lab:2.1.4",
+    "image": "docker.io/networktocode/nautobot-lab:latest",
 
     // "build": { "dockerfile": "Dockerfile" },
 

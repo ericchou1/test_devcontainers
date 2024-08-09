@@ -1,5 +1,5 @@
 {
-    "name": "nautobot_day_1",
+    "name": "nautobot_day_01",
     "build": { "dockerfile": "Dockerfile" },
 
 	// "features": {},
