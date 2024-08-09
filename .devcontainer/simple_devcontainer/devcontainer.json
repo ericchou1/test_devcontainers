@@ -17,6 +17,8 @@
     "forwardPorts": [9000],
 
     // Use 'postCreateCommand' to run commands after the container is created
-    "postCreateCommand": "bash postCreate.sh"
+    // "postCreateCommand": "bash postCreate.sh"
+    "workspaceMount": "source=${localWorkspaceFolder}/workshops/${containerWorkspaceFolder},target=/${containerWorkspaceFolder},type=bind",
+    "workspaceFolder": "/simple_devcontainer"
 }
 
