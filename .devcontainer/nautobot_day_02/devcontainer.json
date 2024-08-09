@@ -1,0 +1,22 @@
+{
+    "name": "nautobot_day_02",
+    "image": "docker.io/networktocode/nautobot-lab:2.1.4",
+
+    // "build": { "dockerfile": "Dockerfile" },
+
+	// "features": {},
+
+    "customizations": {
+        "vscode": {
+            "settings": {},
+            "extensions": []
+        }
+    },
+
+    // Use 'forwardPorts' to make a list of ports inside the container available locally 
+    // "forwardPorts": [9000]
+
+    // Use 'postCreateCommand' to run commands after the container is created
+    // "postCreateCommand": "bash postCreate.sh"
+}
+
