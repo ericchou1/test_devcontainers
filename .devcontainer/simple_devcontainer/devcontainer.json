@@ -1,5 +1,5 @@
 {
-    "name": "Simple Env with Python 3.12",
+    "name": "simple_devcontainer",
     "image": "mcr.microsoft.com/devcontainers/python:3.12",
 
     // Features to add to the dev container. More info: https://containers.dev/features.
