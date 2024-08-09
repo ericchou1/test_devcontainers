@@ -1,5 +1,5 @@
 {
-    "name": "simple_devcontainer",
+    "name": "simple_flask",
     "image": "mcr.microsoft.com/devcontainers/python:3.12",
 
     // Features to add to the dev container. More info: https://containers.dev/features.
@@ -14,9 +14,9 @@
     },
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally 
-    // "forwardPorts": [9000]
+    "forwardPorts": [9000],
 
     // Use 'postCreateCommand' to run commands after the container is created
-    // "postCreateCommand": "bash postCreate.sh"
+    "postCreateCommand": "pip3 install -r workshops/simple_flask/requirements.txt"
 }
 
