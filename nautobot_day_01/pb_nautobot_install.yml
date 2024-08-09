@@ -1,0 +1,148 @@
+---
+- hosts: "localhost"
+  connection: "local"
+  vars:
+    nautobot_root: "{{ lookup('env', 'NAUTOBOT_ROOT') }}"
+    nautobot_db_name: "{{ lookup('env', 'DB_NAME') }}"
+    nautobot_db_username: "{{ lookup('env', 'DB_USER') }}"
+    nautobot_db_password: "{{ lookup('env', 'DB_PASSWORD') }}"
+    allowed_hosts:
+      - "*"
+
+  tasks:
+    - name: "RUN SYSTEMCTL DAEMON-RELOAD"
+      ansible.builtin.command: "systemctl daemon-reload"
+
+    - name: "CREATE NAUTOBOT GROUP"
+      ansible.builtin.group:
+        name: "nautobot"
+        state: "present"
+
+    - name: "CREATE NAUTOBOT USER"
+      ansible.builtin.user:
+        name: "nautobot"
+        comment: "Nautobot User"
+        group: "nautobot"
+        shell: "/bin/bash"
+        home: "{{ nautobot_root }}"
+        system: "yes"
+
+    - name: "UPDATE SUPERVISORD.CONF"
+      ansible.builtin.template:
+        src: "supervisord.conf"
+        dest: "/etc/supervisord.conf"
+        owner: "root"
+        group: "root"
+        mode: "0640"
+
+    - name: "UPDATE UWSGI.INI"
+      ansible.builtin.template:
+        src: "uwsgi.ini"
+        dest: "/opt/nautobot/uwsgi.ini"
+        owner: "nautobot"
+        group: "nautobot"
+        mode: "0640"
+
+    - name: "START REDIS"
+      ansible.builtin.service:
+        name: "redis-server"
+        state: "started"
+
+    - name: "UPDATE PG_HBA.CONF"
+      ansible.builtin.template:
+        src: "pg_hba.conf"
+        dest: "/etc/postgresql/14/main/pg_hba.conf"
+        owner: "postgres"
+        group: "postgres"
+        mode: "0600"
+      register: "hba_update"
+
+    - name: "RESTART POSTGRESQL"
+      ansible.builtin.service:
+        name: "postgresql"
+        state: "restarted"
+      when: "hba_update.changed"
+
+    - name: "CREATE NAUTOBOT DATABASE"
+      community.postgresql.postgresql_db:
+        name: "nautobot"
+        state: "present"
+
+    - name: "CREATE NAUTOBOT DATABASE USER AND GRANT PRIVILEGES TO DATABASE"
+      community.postgresql.postgresql_user:
+        db: "{{ nautobot_db_name }}"
+        name: "{{ nautobot_db_username }}"
+        password: "{{ nautobot_db_password }}"
+        priv: "ALL"
+        state: "present"
+
+    - name: "INSTALL NAUTOBOT AND PLUGINS"
+      ansible.builtin.pip:
+        name: "{{ nautobot_item }}"
+        virtualenv: "{{ nautobot_root }}"
+        virtualenv_command: "python3 -m venv"
+      loop:
+        - "nautobot=={{ lookup('env', 'NAUTOBOT_VERSION') }}"
+        - "nautobot-device-onboarding"
+        - "nautobot-circuit-maintenance"
+        - "nautobot-data-validation-engine"
+        - "nautobot-capacity-metrics"
+        - "nautobot-golden-config"
+        - "nautobot-plugin-nornir"
+        - "nautobot-ssot"
+        - "nautobot-device-lifecycle-mgmt"
+        - "nautobot-firewall-models"
+        - "nautobot-bgp-models"
+        - "nautobot-welcome-wizard"
+        - "nautobot-floor-plan"
+        - "nautobot-design-builder"
+        - "supervisor"
+      loop_control:
+        loop_var: "nautobot_item"
+
+    - name: "UPDATE NAUTOBOT CONFIG"
+      ansible.builtin.template:
+        src: "nautobot_config.py"
+        dest: "{{ nautobot_root }}/nautobot_config.py"
+        owner: "nautobot"
+        group: "nautobot"
+        mode: "0644"
+
+    - name: "RUN MIGRATE"
+      ansible.builtin.command: "{{ nautobot_root }}/bin/nautobot-server migrate"
+
+    - name: "RUN NAUTOBOT-SERVER COLLECTSTATIC"
+      # yamllint disable-line rule:line-length
+      ansible.builtin.command: "{{ nautobot_root }}/bin/nautobot-server collectstatic"
+
+    - name: "RUN NAUTOBOT-SERVER POST_UPGRADE"
+      # yamllint disable-line rule:line-length
+      ansible.builtin.command: "{{ nautobot_root }}/bin/nautobot-server post_upgrade"
+
+    - name: "SETUP NAUTOBOT DEFAULT ACCOUNT"
+      ansible.builtin.command:
+        cmd: "{{ nautobot_root }}/bin/python3 ./templates/default_user.py"
+
+    - name: "SET NAUTOBOT DIRECTORY PERMISSIONS"
+      ansible.builtin.file:
+        path: "{{ nautobot_root }}"
+        owner: "nautobot"
+        group: "nautobot"
+        mode: u=rwX,g=rX,o=rX
+        recurse: "yes"
+
+    - name: "ADD LOAD MOCK DATA SCRIPT"
+      ansible.builtin.template:
+        src: "loaddata.sh"
+        dest: "/usr/local/bin/load-mock-data"
+        owner: "nautobot"
+        group: "nautobot"
+        mode: "0755"
+
+    - name: "UPDATE REDIS.CONF"
+      ansible.builtin.template:
+        src: "redis.conf"
+        dest: "/etc/redis/redis.conf"
+        owner: "redis"
+        group: "redis"
+        mode: "0640"
