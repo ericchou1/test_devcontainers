@@ -1,17 +1,17 @@
 {
     "name": "nautobot_day_02",
-    "image": "docker.io/networktocode/nautobot-lab:latest",
+    "image": "docker.io/networktocode/nautobot-lab:latest"
 
     // "build": { "dockerfile": "Dockerfile" },
 
 	// "features": {},
 
-    "customizations": {
-        "vscode": {
-            "settings": {},
-            "extensions": []
-        }
-    },
+    // "customizations": {
+    //     "vscode": {
+    //         "settings": {},
+    //         "extensions": []
+    //     }
+    // }
 
     // Use 'forwardPorts' to make a list of ports inside the container available locally 
     // "forwardPorts": [9000]
