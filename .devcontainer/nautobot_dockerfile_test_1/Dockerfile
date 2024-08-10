@@ -1,6 +1,6 @@
 # Dockerfile from https://github.com/nautobot/nautobot-lab/blob/main/Dockerfile
 # FROM public.ecr.aws/ubuntu/ubuntu:22.04_stable
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 # FROM mcr.microsoft.com/devcontainers/python:3.12
 
 ARG NAUTOBOT_VERSION="2.1.4"
@@ -71,21 +71,21 @@ RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
  
 # hadolint ignore=DL3008,DL3013
-# changed: python3-full
-# RUN apt-get update -y && \
-#     apt-get install -y tzdata --no-install-recommends && \
-#     ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
-#     dpkg-reconfigure -f noninteractive tzdata && \
-#     apt-get install -y python3-full python3-psycopg2 python3-pip \
-#       python3-venv python3-dev python3-apt postgresql-14 \
-#       libpq-dev redis-server systemctl git --no-install-recommends && \
-#     pip3 install --no-cache-dir pip setuptools wheel --upgrade && \
-#     pip3 install --no-cache-dir --requirement ./templates/requirements.txt && \
-#     ansible-galaxy collection install community.postgresql && \
-#     ansible-playbook pb_nautobot_install.yml && \
-#     pip3 uninstall -y ansible && \
-#     apt-get clean && \
-#     rm -rf /var/lib/apt/lists/*
+#changed: python3-full
+RUN apt-get update -y && \
+    apt-get install -y tzdata --no-install-recommends && \
+    ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
+    dpkg-reconfigure -f noninteractive tzdata && \
+    apt-get install -y python3 python3-psycopg2 python3-pip \
+      python3-venv python3-dev python3-apt postgresql-14 \
+      libpq-dev redis-server systemctl git --no-install-recommends && \
+    pip3 install --no-cache-dir pip setuptools wheel --upgrade && \
+    pip3 install --no-cache-dir --requirement ./templates/requirements.txt && \
+    ansible-galaxy collection install community.postgresql && \
+    ansible-playbook pb_nautobot_install.yml && \
+    pip3 uninstall -y ansible && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8000/tcp
 

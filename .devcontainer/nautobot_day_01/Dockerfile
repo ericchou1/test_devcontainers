@@ -1,6 +1,6 @@
 # Dockerfile from https://github.com/nautobot/nautobot-lab/blob/main/Dockerfile
 # FROM public.ecr.aws/ubuntu/ubuntu:22.04_stable
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 # FROM mcr.microsoft.com/devcontainers/python:3.12
 
 ARG NAUTOBOT_VERSION="2.1.4"
@@ -71,7 +71,6 @@ RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
  
 # hadolint ignore=DL3008,DL3013
-# changed: python3-full
 RUN apt-get update -y && \
     apt-get install -y tzdata --no-install-recommends && \
     ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
