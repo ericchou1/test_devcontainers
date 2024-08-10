@@ -1,4 +1,5 @@
-FROM public.ecr.aws/ubuntu/ubuntu:22.04_stable
+# FROM public.ecr.aws/ubuntu/ubuntu:22.04_stable
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
 ARG NAUTOBOT_VERSION="2.1.4"
 
