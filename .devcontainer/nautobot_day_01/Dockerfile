@@ -64,12 +64,27 @@ COPY pb_nautobot_install.yml .
 COPY templates templates
 
 # hadolint ignore=DL3008,DL3013
-RUN apt-get update -y && \
+# RUN apt-get update -y && \
+#     apt-get install -y tzdata --no-install-recommends && \
+#     ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
+#     dpkg-reconfigure -f noninteractive tzdata && \
+#     apt-get install -y python3 python3-psycopg2 python3-pip \
+#       python3-venv python3-dev python3-apt postgresql-14 \
+#       libpq-dev redis-server systemctl git --no-install-recommends && \
+#     pip3 install --no-cache-dir pip setuptools wheel --upgrade && \
+#     pip3 install --no-cache-dir --requirement ./templates/requirements.txt && \
+#     ansible-galaxy collection install community.postgresql && \
+#     ansible-playbook pb_nautobot_install.yml && \
+#     pip3 uninstall -y ansible && \
+#     apt-get clean && \
+#     rm -rf /var/lib/apt/lists/*
+
+  RUN apt-get update -y && \
     apt-get install -y tzdata --no-install-recommends && \
     ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
     apt-get install -y python3 python3-psycopg2 python3-pip \
-      python3-venv python3-dev python3-apt postgresql-14 \
+      python3-venv python3-dev python3-apt postgresql \
       libpq-dev redis-server systemctl git --no-install-recommends && \
     pip3 install --no-cache-dir pip setuptools wheel --upgrade && \
     pip3 install --no-cache-dir --requirement ./templates/requirements.txt && \
