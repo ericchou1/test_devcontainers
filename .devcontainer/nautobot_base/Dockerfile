@@ -71,7 +71,6 @@ RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
  
 # hadolint ignore=DL3008,DL3013
-#changed: python3-full
 RUN apt-get update -y && \
     apt-get install -y tzdata --no-install-recommends && \
     ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
@@ -93,6 +92,6 @@ VOLUME /var/lib/redis
 
 VOLUME /var/lib/postgresql/12/main
 
-# HEALTHCHECK CMD supervisorctl status || exit 1
+HEALTHCHECK CMD supervisorctl status || exit 1
 
-# CMD ["sh", "-c", "${NAUTOBOT_ROOT}/bin/supervisord", "-c", "/etc/supervisord.conf"]
+CMD ["sh", "-c", "${NAUTOBOT_ROOT}/bin/supervisord", "-c", "/etc/supervisord.conf"]
