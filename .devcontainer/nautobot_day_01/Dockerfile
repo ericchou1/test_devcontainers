@@ -1,5 +1,6 @@
 # FROM public.ecr.aws/ubuntu/ubuntu:22.04_stable
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+# FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+FROM mcr.microsoft.com/devcontainers/python:3.12
 
 ARG NAUTOBOT_VERSION="2.1.4"
 
