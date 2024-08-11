@@ -24,7 +24,7 @@ RUN apt update && apt install -y --no-install-recommends containerlab${CLAB_VERS
     telnet
 
 # install gNMIc and gNOIc
-RUN bash -c "$(curl -sL https://get-gnmic.openconfig.net)" && bash -c "$(curl -sL https://get-gnoic.kmrd.dev)"
+# RUN bash -c "$(curl -sL https://get-gnmic.openconfig.net)" && bash -c "$(curl -sL https://get-gnoic.kmrd.dev)"
 
 # add empty docker config files to avoid clab warnings for root user
 RUN mkdir -p /root/.docker && echo "{}" > /root/.docker/config.json
