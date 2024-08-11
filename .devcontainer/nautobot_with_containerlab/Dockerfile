@@ -1,6 +1,7 @@
 # Dockerfile from https://github.com/nautobot/nautobot-lab/blob/main/Dockerfile
 # Example from https://containerlab.dev/install/#__tabbed_3_2 
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+# FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-20.04
 
 ARG NAUTOBOT_VERSION="2.1.4"
 
@@ -88,8 +89,8 @@ RUN apt-get update -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN update-alternatives --set iptables /usr/sbin/iptables-legacy
-RUN update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+# RUN update-alternatives --set iptables /usr/sbin/iptables-legacy
+# RUN update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 # RUN bash -c "$(curl -sL https://get.containerlab.dev)" 
 
 # Set permissions for mounts in devcontainer.json (containerlab)
