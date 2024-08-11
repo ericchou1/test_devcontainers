@@ -1,8 +1,6 @@
 # Dockerfile from https://github.com/nautobot/nautobot-lab/blob/main/Dockerfile
 # Example from https://containerlab.dev/install/#__tabbed_3_2 
-# FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
-# FROM mcr.microsoft.com/devcontainers/python:3.12
-FROM mcr.microsoft.com/devcontainers/python:3.11-bookworm
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 
 ARG NAUTOBOT_VERSION="2.1.4"
 
@@ -29,7 +27,7 @@ ARG NAUTOBOT_PASSWORD="nautobot"
 ARG NAUTOBOT_TOKEN="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
 # containelab version will be set in devcontainer.json
-ARG _CLAB_VERSION
+# ARG _CLAB_VERSION
 
 ENV NAUTOBOT_VERSION=${NAUTOBOT_VERSION}
 
@@ -91,23 +89,23 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Set permissions for mounts in devcontainer.json (containerlab)
-RUN mkdir -p /home/vscode/.vscode-server/bin
-RUN chown -R vscode:vscode /home/vscode/.vscode-server
+# RUN mkdir -p /home/vscode/.vscode-server/bin
+# RUN chown -R vscode:vscode /home/vscode/.vscode-server
 # install some basic tools inside the container
 # adjust this list based on your demands
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends \
-    sshpass \
-    curl \
-    iputils-ping \
-    htop \
-    yamllint \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
-    && apt-get clean
+# RUN apt-get update && \
+#     apt-get upgrade -y && \
+#     apt-get install -y --no-install-recommends \
+#     sshpass \
+#     curl \
+#     iputils-ping \
+#     htop \
+#     yamllint \
+#     && rm -rf /var/lib/apt/lists/* \
+#     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
+#     && apt-get clean
 # install preferred version of the containerlab
-RUN bash -c "$(curl -sL https://get.containerlab.dev)" -- -v ${_CLAB_VERSION}
+# RUN bash -c "$(curl -sL https://get.containerlab.dev)" -- -v ${_CLAB_VERSION}
 
 
 EXPOSE 8000/tcp
