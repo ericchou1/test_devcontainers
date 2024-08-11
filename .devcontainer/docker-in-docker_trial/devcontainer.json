@@ -1,53 +1,47 @@
+// For format details, see https://aka.ms/devcontainer.json.
 {
-    "name": "docker-in-docker trial",
-    "build": { 
-        "dockerfile": "Dockerfile",
+    "name": "docker in docker with containerlab trial",
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "context": "..",
         "args": {
-            "CLAB_VERSION": "0.55.0"
+            "CLAB_VERSION": "${localEnv:CLAB_VERSION}"
         }
     },
-
-	"features": {
-        // Containerlab will run in a docker-in-docker container
-        // it is also possible to use docker-outside-docker feature
+    "features": {
         "ghcr.io/devcontainers/features/docker-in-docker:2": {
             "version": "latest",
-	        "dockerDashComposeVersion": "none"
+            "dockerDashComposeVersion": "none"
+        },
+        // Add sshd to support gh cli codespace cp.
+        "ghcr.io/devcontainers/features/sshd:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/go:1": {
+            "version": "1.21"
         }
-        // You can add other features from this list: https://github.com/orgs/devcontainers/packages?repo_name=features
-        // For example:
-        //"ghcr.io/devcontainers/features/go:latest": {
-        //    "version": "1.21"
-        //}
-
-    }
-
-    // // add any required extensions that must be pre-installed in the devcontainer
-    // "customizations": {
-    //     "vscode": {
-    //         "extensions": [
-    //             // various tools
-    //             "ms-azuretools.vscode-docker",
-    //             "tuxtina.json2yaml",
-    //             "vscode-icons-team.vscode-icons",
-    //             "mutantdino.resourcemonitor"
-    //         ]
-    //     }
-    // },
-
-    // This adds persistent mounts, so some configuration like docker credentials are saved for the vscode user and root (for sudo).
-    // Furthermore, your bash history and other configurations you made in your container users 'vscode' home are saved.
-    // .vscode-server is an anonymous volume. Gets destroyed on rebuild, which allows vscode to reinstall the extensions and dotfiles.
-    // "mounts": [
-    //     "source=clab-vscode-home-dir,target=/home/vscode,type=volume",
-    //     "source=clab-docker-root-config,target=/root/.docker,type=volume",
-    //     "target=/home/vscode/.vscode-server,type=volume"
-    // ]
-    
-    // Use 'forwardPorts' to make a list of ports inside the container available locally 
-    // "forwardPorts": [9000]
-
-    // Use 'postCreateCommand' to run commands after the container is created
-    // "postCreateCommand": "bash postCreate.sh"
+    },
+    "remoteUser": "vscode",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "mhutchie.git-graph",
+                "ms-azuretools.vscode-docker",
+                // Python.
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                // Errors and highlighters.
+                "mechatroner.rainbow-csv",
+                "redhat.vscode-yaml",
+                "jinliming2.vscode-go-template",
+                // markdown
+                "yzhang.markdown-all-in-one",
+                "davidanson.vscode-markdownlint",
+                // proto
+                "zxh404.vscode-proto3"
+            ]
+        }
+    },
+    "workspaceMount": "source=${localWorkspaceFolder},target=/${containerWorkspaceFolder},type=bind",
+    "workspaceFolder": "/clab"
 }
-
