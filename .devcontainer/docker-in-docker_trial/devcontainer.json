@@ -3,7 +3,7 @@
     "name": "docker in docker with containerlab trial",
     "build": {
         "dockerfile": "./Dockerfile",
-        "context": "..",
+        // "context": "..",
         "args": {
             "CLAB_VERSION": "${localEnv:CLAB_VERSION}"
         }
