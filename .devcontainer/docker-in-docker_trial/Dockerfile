@@ -49,13 +49,13 @@ RUN bash -c "$(curl https://pyenv.run)"
 RUN mkdir -p /home/vscode/.docker && echo "{}" > /home/vscode/.docker/config.json
 
 # setup zsh
-COPY ./.devcontainer/zsh/.zshrc /home/vscode/.zshrc
-COPY ./.devcontainer/zsh/.p10k.zsh /home/vscode/.p10k.zsh
-COPY ./.devcontainer/zsh/install-zsh-plugins.sh /tmp/install-zsh-plugins.sh
+COPY ./.devcontainer/docker-in-docker_trial/zsh/.zshrc /home/vscode/.zshrc
+COPY ./.devcontainer/docker-in-docker_trial/zsh/.p10k.zsh /home/vscode/.p10k.zsh
+COPY ./.devcontainer/docker-in-docker_trial/zsh/install-zsh-plugins.sh /tmp/install-zsh-plugins.sh
 RUN bash -c "/tmp/install-zsh-plugins.sh"
 
 # setup pyenv venv for clab tests
-COPY ./tests/requirements.txt /tmp/requirements.txt
+COPY ./.devcontainer/docker-in-docker_trial/tests/requirements.txt /tmp/requirements.txt
 ENV PYENV_ROOT /home/vscode/.pyenv
 ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 RUN pyenv virtualenv system clab-rf && pyenv global clab-rf && pip install -r /tmp/requirements.txt
