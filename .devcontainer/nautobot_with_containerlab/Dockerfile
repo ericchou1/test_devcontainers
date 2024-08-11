@@ -74,7 +74,7 @@ RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-k
  
 # hadolint ignore=DL3008,DL3013
 RUN apt-get update -y && \
-    apt-get install -y tzdata --no-install-recommends && \
+    apt-get install -y vim tzdata --no-install-recommends && \
     ln -fs /usr/share/zoneinfo/UTC /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata && \
     apt-get install -y python3 python3-psycopg2 python3-pip \
@@ -87,6 +87,9 @@ RUN apt-get update -y && \
     pip3 uninstall -y ansible && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN update-alternatives --set iptables /usr/sbin/iptables-legacy
+RUN update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
 
 # Set permissions for mounts in devcontainer.json (containerlab)
 # RUN mkdir -p /home/vscode/.vscode-server/bin

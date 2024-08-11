@@ -1,0 +1,15 @@
+# topology documentation: http://containerlab.dev/lab-examples/srl-ceos/
+name: srlceos01
+
+topology:
+  nodes:
+    srl-1:
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux
+    srl-2:
+      kind: nokia_srlinux
+      image: ghcr.io/nokia/srlinux
+
+  links:
+    - endpoints: ["srl-1:e1-1", "srl-2:e1-1"]
+
