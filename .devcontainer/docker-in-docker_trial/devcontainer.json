@@ -32,7 +32,7 @@
     //             "mutantdino.resourcemonitor"
     //         ]
     //     }
-    },
+    // },
 
     // This adds persistent mounts, so some configuration like docker credentials are saved for the vscode user and root (for sudo).
     // Furthermore, your bash history and other configurations you made in your container users 'vscode' home are saved.
@@ -47,6 +47,6 @@
     // "forwardPorts": [9000]
 
     // Use 'postCreateCommand' to run commands after the container is created
-    "postCreateCommand": "bash postCreate.sh"
+    // "postCreateCommand": "bash postCreate.sh"
 }
 
