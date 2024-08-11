@@ -1,10 +1,8 @@
 # Dockerfile from https://github.com/nautobot/nautobot-lab/blob/main/Dockerfile
 # Example from https://containerlab.dev/install/#__tabbed_3_2 
-# FROM public.ecr.aws/ubuntu/ubuntu:22.04_stable
 # FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
-# FROM mcr.microsoft.com/vscode/devcontainers/base:bullseye
-FROM mcr.microsoft.com/devcontainers/base:debian
 # FROM mcr.microsoft.com/devcontainers/python:3.12
+FROM mcr.microsoft.com/devcontainers/python:3.11-bookworm
 
 ARG NAUTOBOT_VERSION="2.1.4"
 
