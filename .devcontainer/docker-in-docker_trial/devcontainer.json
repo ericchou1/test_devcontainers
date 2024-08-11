@@ -42,6 +42,6 @@
             ]
         }
     },
-    "workspaceMount": "source=${localWorkspaceFolder},target=/${containerWorkspaceFolder},type=bind",
-    "workspaceFolder": "/clab"
+    // "workspaceMount": "source=${localWorkspaceFolder},target=/${containerWorkspaceFolder},type=bind",
+    // "workspaceFolder": "/clab"
 }
