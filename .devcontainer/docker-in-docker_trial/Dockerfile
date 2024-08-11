@@ -49,6 +49,8 @@ RUN bash -c "$(curl https://pyenv.run)"
 RUN mkdir -p /home/vscode/.docker && echo "{}" > /home/vscode/.docker/config.json
 
 # setup zsh
+RUN bash "pwd"
+RUN bash "ls -lia"
 COPY ./.devcontainer/docker-in-docker_trial/zsh/.zshrc /home/vscode/.zshrc
 COPY ./.devcontainer/docker-in-docker_trial/zsh/.p10k.zsh /home/vscode/.p10k.zsh
 COPY ./.devcontainer/docker-in-docker_trial/zsh/install-zsh-plugins.sh /tmp/install-zsh-plugins.sh
