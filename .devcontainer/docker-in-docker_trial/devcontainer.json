@@ -1,5 +1,5 @@
 {
-    "name": "nautobot_with_containerlab",
+    "name": "docker-in-docker trial",
     "build": { 
         "dockerfile": "Dockerfile",
         "args": {
