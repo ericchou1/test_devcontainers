@@ -6,7 +6,7 @@
     "build": {
         "dockerfile": "Dockerfile",
         "args": {
-            // "_CLAB_VERSION": "0.56.0"
+            "_CLAB_VERSION": "0.56.0"
         }
     },
     "features": {
@@ -15,12 +15,6 @@
         "ghcr.io/devcontainers/features/docker-in-docker:latest": {
             "version": "latest"
         }
-        // You can add other features from this list: https://github.com/orgs/devcontainers/packages?repo_name=features
-        // For example:
-        //"ghcr.io/devcontainers/features/go:latest": {
-        //    "version": "1.21"
-        //}
-
     },
     // add any required extensions that must be pre-installed in the devcontainer
     "customizations": {
@@ -38,9 +32,9 @@
     // Furthermore, your bash history and other configurations you made in your container users 'vscode' home are saved.
     // .vscode-server is an anonymous volume. Gets destroyed on rebuild, which allows vscode to reinstall the extensions and dotfiles.
     "mounts": [
-    "source=clab-vscode-home-dir,target=/home/vscode,type=volume",
-    "source=clab-docker-root-config,target=/root/.docker,type=volume",
-    "target=/home/vscode/.vscode-server,type=volume"
-]
+        "source=clab-vscode-home-dir,target=/home/vscode,type=volume",
+        "source=clab-docker-root-config,target=/root/.docker,type=volume",
+        "target=/home/vscode/.vscode-server,type=volume"
+    ]
 }
 
