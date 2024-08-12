@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/devcontainers/python:3.11-bookworm
+# FROM mcr.microsoft.com/devcontainers/python:3.11-bookworm
+FROM mcr.microsoft.com/devcontainers/base:bullseye 
 
 # containelab version will be set in devcontainer.json
 ARG _CLAB_VERSION
