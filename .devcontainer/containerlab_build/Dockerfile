@@ -26,4 +26,4 @@ RUN apt-get update && \
 
 # install preferred version of the containerlab
 # RUN bash -c "$(curl -sL https://get.containerlab.dev)" -- -v ${_CLAB_VERSION}
-RUN bash -c "$(curl -sL https://get.containerlab.dev)"
+# RUN bash -c "$(curl -sL https://get.containerlab.dev)"

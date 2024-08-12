@@ -1,5 +1,10 @@
+---
 # topology documentation: http://containerlab.dev/lab-examples/srl-ceos/
 name: srlceos01
+
+mgmt:
+  network: custom_mgmt
+  ipv4-subnet: 10.0.0.0/16
 
 topology:
   nodes:
