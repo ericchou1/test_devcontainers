@@ -1,8 +1,9 @@
 // https://containerlab.dev/install/#__tabbed_3_2
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/python
+// https://github.com/srl-labs/containerlab/blob/main/.devcontainer/Dockerfile 
 {
-    "name": "clab-dev-container",
+    "name": "clab-dev-container build",
     "build": {
         "dockerfile": "Dockerfile",
         "args": {

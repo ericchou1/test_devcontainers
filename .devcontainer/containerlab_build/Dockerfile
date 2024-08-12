@@ -1,6 +1,4 @@
-# The devcontainer will be based on debian bullseye
-# The base container already has entrypoint, vscode user account, etc. out of the box
-FROM mcr.microsoft.com/vscode/devcontainers/base:bullseye
+FROM mcr.microsoft.com/devcontainers/python:3.11-bookworm
 
 # containelab version will be set in devcontainer.json
 ARG _CLAB_VERSION
