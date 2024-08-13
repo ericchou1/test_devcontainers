@@ -89,9 +89,6 @@ RUN apt-get update -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install containerlab latest version
-RUN bash -c "$(curl -sL https://get.containerlab.dev)" 
-
 # Set permissions for mounts in devcontainer.json (containerlab)
 # RUN mkdir -p /home/vscode/.vscode-server/bin
 # RUN chown -R vscode:vscode /home/vscode/.vscode-server
