@@ -4,6 +4,7 @@ name: srlceos01
 
 mgmt:
   network: custom_mgmt
+  # needed to bypass ipv6 for mgmt network, codespace kernel does not have legacy IP tables support
   ipv4-subnet: 10.0.0.0/16
 
 topology:

@@ -89,8 +89,7 @@ RUN apt-get update -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# RUN update-alternatives --set iptables /usr/sbin/iptables-legacy
-# RUN update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+# Install containerlab latest version
 RUN bash -c "$(curl -sL https://get.containerlab.dev)" 
 
 # Set permissions for mounts in devcontainer.json (containerlab)
