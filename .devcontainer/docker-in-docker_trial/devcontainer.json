@@ -19,10 +19,6 @@
         },
         "ghcr.io/devcontainers/features/go:1": {
             "version": "1.21"
-        },
-        // Add Tailscale
-        "ghcr.io/tailscale/codespace/tailscale": {
-            "version": "latest"
         }
     },
     "remoteUser": "vscode",
