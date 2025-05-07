@@ -15,6 +15,6 @@
         "ghcr.io/tailscale/codespace/tailscale": {}
     },
     "forwardPorts": [8080],
-    "postCreateCommand": "bash /workspaces/100-days-of-nautobot/postCreate.sh",
+    // "postCreateCommand": "bash /workspaces/100-days-of-nautobot/postCreate.sh",
     "workspaceFolder": "/home/vscode"
 }
